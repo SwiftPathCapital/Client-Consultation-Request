@@ -59,15 +59,8 @@
     z-index: 2;
   }
 
-  .logo-wrap {
-    display: flex;
-    align-items: center;
-  }
-
-  .logo-svg {
-    width: 52px;
-    height: 40px;
-  }
+  .logo-wrap { display: flex; align-items: center; }
+  .logo-svg { width: 52px; height: 40px; }
 
   .nav-links {
     display: flex;
@@ -87,11 +80,7 @@
 
   .nav-links a:hover { color: #fff; }
 
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
 
   .btn-apply {
     background: transparent;
@@ -136,7 +125,6 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: none;
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
   }
 
@@ -149,9 +137,7 @@
     font-style: italic;
   }
 
-  .hero-phone-wrap {
-    margin-top: 28px;
-  }
+  .hero-phone-wrap { margin-top: 28px; }
 
   .hero-phone-cta {
     display: inline-flex;
@@ -188,7 +174,7 @@
     padding-left: 12px;
   }
 
-  /* ── APPROACH SECTION ── */
+  /* ── APPROACH ── */
   .approach {
     padding: 64px 5%;
     max-width: 1100px;
@@ -222,7 +208,6 @@
     border: 1px solid rgba(138,155,176,0.2);
     padding: 28px 24px;
     border-radius: 2px;
-    position: relative;
     transition: border-color 0.3s;
   }
 
@@ -244,11 +229,7 @@
     margin-bottom: 10px;
   }
 
-  .step-desc {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.6;
-  }
+  .step-desc { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
 
   /* ── FORM SECTION ── */
   .form-section {
@@ -258,10 +239,7 @@
     padding: 72px 5%;
   }
 
-  .form-inner {
-    max-width: 760px;
-    margin: 0 auto;
-  }
+  .form-inner { max-width: 760px; margin: 0 auto; }
 
   .form-grid {
     display: grid;
@@ -276,12 +254,7 @@
     header { margin: 8px; }
   }
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
   .form-group.full { grid-column: 1 / -1; }
 
   label {
@@ -291,7 +264,12 @@
     font-family: 'Bebas Neue', sans-serif;
   }
 
-  input, select, textarea {
+  /* Global input styles — NO -webkit-appearance here */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  select,
+  textarea {
     background: rgba(10,30,46,0.8);
     border: 1px solid rgba(138,155,176,0.3);
     color: var(--white);
@@ -303,15 +281,38 @@
     transition: border-color 0.2s;
     width: 100%;
     -webkit-appearance: none;
+    appearance: none;
   }
 
-  input::placeholder, textarea::placeholder { color: rgba(138,155,176,0.5); }
+  input[type="text"]::placeholder,
+  input[type="email"]::placeholder,
+  input[type="tel"]::placeholder,
+  textarea::placeholder { color: rgba(138,155,176,0.5); }
 
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--gold);
-  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  select:focus,
+  textarea:focus { border-color: var(--gold); }
 
   select option { background: #0a1e2e; }
+
+  /* ── CHECKBOXES — explicitly NOT suppressed ── */
+  input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    margin-top: 2px;
+    accent-color: var(--gold);
+    cursor: pointer;
+    padding: 0;
+    /* NO -webkit-appearance: none here — that was the bug */
+    -webkit-appearance: checkbox;
+    appearance: checkbox;
+    background: transparent;
+    border: 1px solid var(--steel);
+    flex-shrink: 0;
+  }
 
   /* ── CONSENT BOXES ── */
   .consent-block {
@@ -333,35 +334,27 @@
     font-size: 14px;
     letter-spacing: 1.5px;
     color: var(--gold);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
 
   .consent-row {
     display: flex;
     align-items: flex-start;
-    gap: 10px;
+    gap: 12px;
   }
 
-  .consent-row input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    min-width: 16px;
-    margin-top: 2px;
-    accent-color: var(--gold);
-    cursor: pointer;
-    padding: 0;
-    border: 1px solid var(--steel);
-    background: transparent;
-  }
-
-  .consent-text {
+  /* Make the label next to checkbox NOT use Bebas Neue — override the global label style */
+  .consent-row label {
+    font-family: 'Lato', sans-serif;
     font-size: 12.5px;
+    letter-spacing: 0;
     color: var(--text-muted);
     line-height: 1.65;
+    cursor: pointer;
   }
 
-  .consent-text strong { color: var(--steel-light); }
-  .consent-text a { color: var(--gold); text-decoration: underline; }
+  .consent-row label strong { color: var(--steel-light); }
+  .consent-row label a { color: var(--gold); text-decoration: underline; }
 
   .required-star { color: var(--gold); }
 
@@ -386,12 +379,57 @@
     color: #fff;
   }
 
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
   .form-note {
     text-align: center;
     font-size: 11px;
     color: rgba(138,155,176,0.5);
     margin-top: 12px;
     letter-spacing: 0.5px;
+  }
+
+  /* ── FORMSPREE ERROR/SUCCESS ── */
+  [data-fs-success] {
+    display: none;
+    text-align: center;
+    padding: 40px;
+    background: rgba(10,30,46,0.8);
+    border: 1px solid var(--gold);
+    border-radius: 2px;
+    margin-top: 20px;
+  }
+
+  [data-fs-success] h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  [data-fs-success] p { color: var(--text-muted); font-size: 14px; }
+
+  [data-fs-error] {
+    display: none;
+    color: #e07070;
+    font-size: 12px;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .form-error-global {
+    background: rgba(200,80,80,0.1);
+    border: 1px solid rgba(200,80,80,0.4);
+    color: #e07070;
+    padding: 12px 16px;
+    border-radius: 2px;
+    font-size: 13px;
+    margin-top: 16px;
+    display: none;
   }
 
   /* ── WHY SECTION ── */
@@ -408,10 +446,7 @@
     margin-top: 36px;
   }
 
-  .why-card {
-    border-left: 2px solid var(--gold);
-    padding-left: 20px;
-  }
+  .why-card { border-left: 2px solid var(--gold); padding-left: 20px; }
 
   .why-card h3 {
     font-family: 'Bebas Neue', sans-serif;
@@ -421,11 +456,7 @@
     margin-bottom: 8px;
   }
 
-  .why-card p {
-    font-size: 14px;
-    color: var(--text-muted);
-    line-height: 1.7;
-  }
+  .why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
 
   /* ── FOOTER ── */
   footer {
@@ -436,27 +467,6 @@
     color: rgba(138,155,176,0.45);
     letter-spacing: 0.5px;
   }
-
-  /* ── SUCCESS MESSAGE ── */
-  .success-msg {
-    display: none;
-    text-align: center;
-    padding: 40px;
-    background: rgba(10,30,46,0.8);
-    border: 1px solid var(--gold);
-    border-radius: 2px;
-    margin-top: 20px;
-  }
-
-  .success-msg h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 2px;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-
-  .success-msg p { color: var(--text-muted); font-size: 14px; }
 </style>
 </head>
 <body>
@@ -464,29 +474,21 @@
 <!-- ── HEADER ── -->
 <header>
   <nav>
-    <!-- Logo -->
     <div class="logo-wrap">
       <svg class="logo-svg" viewBox="0 0 52 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Road lines -->
         <line x1="6" y1="34" x2="26" y2="10" stroke="#4a6080" stroke-width="5" stroke-linecap="round"/>
         <line x1="16" y1="34" x2="36" y2="10" stroke="#4a6080" stroke-width="5" stroke-linecap="round"/>
-        <!-- Arrow -->
         <polygon points="30,4 46,14 36,14 36,26 24,26 24,14 14,14" fill="#6a7fa0"/>
         <polygon points="32,2 48,12 38,12 38,24 26,24 26,12 16,12" fill="#8a9bb0"/>
-        <!-- Highlight -->
         <polygon points="32,2 40,7 36,9 30,9" fill="rgba(255,255,255,0.3)"/>
       </svg>
     </div>
-
-    <!-- Nav Links -->
     <ul class="nav-links">
       <li><a href="#about">About Us</a></li>
       <li><a href="#solutions">Solutions</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-
-    <!-- Right Side -->
     <div class="nav-right">
       <a href="#contact" class="btn-apply">Apply Now</a>
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -494,7 +496,6 @@
     </div>
   </nav>
 
-  <!-- Hero -->
   <div class="hero">
     <h1>SWIFT FUNDING GROUP</h1>
     <p class="hero-tagline">Empowering Growth Through Strategic Capital</p>
@@ -507,6 +508,133 @@
     </div>
   </div>
 </header>
+
+<!-- ── FORM ── -->
+<section class="form-section" id="contact">
+  <div class="form-inner">
+    <p class="section-label">Choose the Path</p>
+    <h2 class="section-title">Speak with an Advisor</h2>
+
+    <!-- Formspree success message -->
+    <div data-fs-success>
+      <h3>Thank You!</h3>
+      <p>Your consultation request has been received. An advisor from Swift Funding Group will be in touch shortly.</p>
+    </div>
+
+    <!-- Formspree global error -->
+    <div data-fs-error class="form-error-global">
+      Something went wrong. Please try again or call us directly at (516) 407-1132.
+    </div>
+
+    <form id="consultForm">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="firstName">First Name <span class="required-star">*</span></label>
+          <input type="text" id="firstName" name="firstName" placeholder="John" required data-fs-field />
+          <span data-fs-error="firstName" style="color:#e07070;font-size:12px;"></span>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name <span class="required-star">*</span></label>
+          <input type="text" id="lastName" name="lastName" placeholder="Smith" required data-fs-field />
+          <span data-fs-error="lastName" style="color:#e07070;font-size:12px;"></span>
+        </div>
+        <div class="form-group">
+          <label for="email">Business Email <span class="required-star">*</span></label>
+          <input type="email" id="email" name="email" placeholder="john@company.com" required data-fs-field />
+          <span data-fs-error="email" style="color:#e07070;font-size:12px;"></span>
+        </div>
+        <div class="form-group">
+          <label for="company">Company Name <span class="required-star">*</span></label>
+          <input type="text" id="company" name="company" placeholder="Acme Corp" required data-fs-field />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="required-star">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" required data-fs-field />
+        </div>
+        <div class="form-group">
+          <label for="fundingNeeds">Funding Needs <span class="required-star">*</span></label>
+          <select id="fundingNeeds" name="fundingNeeds" required>
+            <option value="" disabled selected>Select an option</option>
+            <option>Bridge Funding</option>
+            <option>Capital Readiness</option>
+            <option>Institutional Referral</option>
+            <option>Balance Recovery</option>
+            <option>Not Sure – Need Guidance</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="bestTime">Best Time to Call <span class="required-star">*</span></label>
+          <select id="bestTime" name="bestTime" required>
+            <option value="" disabled selected>Select a time</option>
+            <option>Morning (9am – 12pm)</option>
+            <option>Afternoon (12pm – 3pm)</option>
+            <option>Late Afternoon (3pm – 6pm)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fundingAmount">Funding Amount Needed <span class="required-star">*</span></label>
+          <select id="fundingAmount" name="fundingAmount" required>
+            <option value="" disabled selected>Select a range</option>
+            <option>Under $50,000</option>
+            <option>$50,000 – $150,000</option>
+            <option>$150,000 – $500,000</option>
+            <option>$500,000 – $1,000,000</option>
+            <option>Over $1,000,000</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Consent Section -->
+      <div class="consent-block">
+
+        <div class="consent-item">
+          <div class="consent-title">SMS / Texting Consent</div>
+          <div class="consent-row">
+            <input type="checkbox" id="smsConsent" name="smsConsent" required />
+            <label for="smsConsent">
+              I consent to receive SMS text messages from <strong>Swift Path Capital LLC</strong> for service updates, consultation follow-ups, and reminders. Message frequency varies and message/data rates may apply. Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help. <span class="required-star">*</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="consent-item">
+          <div class="consent-title">Voice &amp; AI Calls</div>
+          <div class="consent-row">
+            <input type="checkbox" id="voiceConsent" name="voiceConsent" required />
+            <label for="voiceConsent">
+              I provide express written consent to receive phone calls from <strong>Swift Path Capital LLC</strong>, including those using <strong>AI-generated voices</strong>, pre-recorded messages, or automated dialing systems, even if my number is on a Do Not Call registry. <span class="required-star">*</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="consent-item">
+          <div class="consent-title">Email Communications</div>
+          <div class="consent-row">
+            <input type="checkbox" id="emailConsent" name="emailConsent" required />
+            <label for="emailConsent">
+              I agree to receive emails from <strong>Swift Path Capital LLC</strong> regarding my inquiry, business funding updates, and professional services. I can click "Unsubscribe" at any time. <span class="required-star">*</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="consent-item">
+          <div class="consent-title">Terms &amp; Privacy</div>
+          <div class="consent-row">
+            <input type="checkbox" id="termsConsent" name="termsConsent" required />
+            <label for="termsConsent">
+              I confirm that consent is <strong>not a condition of purchase</strong>. I have read and agree to the <a href="https://www.swiftpathcapital.net/privacy-policy" target="_blank">Privacy Policy</a> (which prohibits sharing my SMS data with third parties) and the <a href="https://www.swiftpathcapital.net/terms-of-service" target="_blank">Terms of Service</a>. <span class="required-star">*</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn-submit" data-fs-submit-btn>Request Consultation</button>
+      <p class="form-note">Your information is kept strictly confidential. No mobile data is shared with third parties.</p>
+    </form>
+
+  </div>
+</section>
 
 <!-- ── APPROACH ── -->
 <section class="approach" id="process">
@@ -536,123 +664,6 @@
   </div>
 </section>
 
-<!-- ── FORM ── -->
-<section class="form-section" id="contact">
-  <div class="form-inner">
-    <p class="section-label">Choose the Path</p>
-    <h2 class="section-title">Speak with an Advisor</h2>
-
-    <form id="consultForm">
-      <div class="form-grid">
-        <div class="form-group">
-          <label>First Name <span class="required-star">*</span></label>
-          <input type="text" name="firstName" placeholder="John" required />
-        </div>
-        <div class="form-group">
-          <label>Last Name <span class="required-star">*</span></label>
-          <input type="text" name="lastName" placeholder="Smith" required />
-        </div>
-        <div class="form-group">
-          <label>Business Email <span class="required-star">*</span></label>
-          <input type="email" name="email" placeholder="john@company.com" required />
-        </div>
-        <div class="form-group">
-          <label>Company Name <span class="required-star">*</span></label>
-          <input type="text" name="company" placeholder="Acme Corp" required />
-        </div>
-        <div class="form-group">
-          <label>Phone Number <span class="required-star">*</span></label>
-          <input type="tel" name="phone" placeholder="+1 (555) 000-0000" required />
-        </div>
-        <div class="form-group">
-          <label>Funding Needs</label>
-          <select name="fundingNeeds">
-            <option value="" disabled selected>Select an option</option>
-            <option>Bridge Funding</option>
-            <option>Capital Readiness</option>
-            <option>Institutional Referral</option>
-            <option>Balance Recovery</option>
-            <option>Not Sure – Need Guidance</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Best Time to Call</label>
-          <select name="bestTime">
-            <option value="" disabled selected>Select a time</option>
-            <option>Morning (9am – 12pm)</option>
-            <option>Afternoon (12pm – 3pm)</option>
-            <option>Late Afternoon (3pm – 6pm)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Funding Amount Needed</label>
-          <select name="fundingAmount">
-            <option value="" disabled selected>Select a range</option>
-            <option>Under $50,000</option>
-            <option>$50,000 – $150,000</option>
-            <option>$150,000 – $500,000</option>
-            <option>$500,000 – $1,000,000</option>
-            <option>Over $1,000,000</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Consent Section -->
-      <div class="consent-block">
-
-        <div class="consent-item">
-          <div class="consent-title">SMS / Texting Consent</div>
-          <div class="consent-row">
-            <input type="checkbox" id="smsConsent" name="smsConsent" required />
-            <label for="smsConsent" class="consent-text">
-              I consent to receive SMS text messages from <strong>Swift Path Capital LLC</strong> for service updates, consultation follow-ups, and reminders. I understand message frequency varies and message/data rates may apply. Reply <strong>STOP</strong> to opt out, <strong>HELP</strong> for help. <span class="required-star">*</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="consent-item">
-          <div class="consent-title">Voice &amp; AI Calls</div>
-          <div class="consent-row">
-            <input type="checkbox" id="voiceConsent" name="voiceConsent" required />
-            <label for="voiceConsent" class="consent-text">
-              I provide express written consent to receive phone calls from <strong>Swift Path Capital LLC</strong>, including those using <strong>AI-generated voices</strong>, pre-recorded messages, or automated dialing systems, even if my number is on a Do Not Call registry. <span class="required-star">*</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="consent-item">
-          <div class="consent-title">Email Communications</div>
-          <div class="consent-row">
-            <input type="checkbox" id="emailConsent" name="emailConsent" required />
-            <label for="emailConsent" class="consent-text">
-              I agree to receive emails from <strong>Swift Path Capital LLC</strong> regarding my inquiry, business funding updates, and professional services. I understand I can click "Unsubscribe" at any time to stop receiving these emails. <span class="required-star">*</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="consent-item">
-          <div class="consent-title">Terms &amp; Privacy</div>
-          <div class="consent-row">
-            <input type="checkbox" id="termsConsent" name="termsConsent" required />
-            <label for="termsConsent" class="consent-text">
-              I confirm that consent is <strong>not a condition of purchase</strong>. I have read and agree to the <a href="https://www.swiftpathcapital.net/privacy-policy" target="_blank">Privacy Policy</a> (which prohibits sharing my SMS data with third parties) and the <a href="https://www.swiftpathcapital.net/terms-of-service" target="_blank">Terms of Service</a>. <span class="required-star">*</span>
-            </label>
-          </div>
-        </div>
-
-      </div>
-
-      <button type="submit" class="btn-submit">Request Consultation</button>
-      <p class="form-note">Your information is kept strictly confidential. No mobile data is shared with third parties.</p>
-    </form>
-
-    <div class="success-msg" id="successMsg">
-      <h3>Thank You!</h3>
-      <p>Your consultation request has been received. An advisor from Swift Funding Group will be in touch shortly.</p>
-    </div>
-  </div>
-</section>
-
 <!-- ── WHY SECTION ── -->
 <section class="why-section" id="solutions">
   <p class="section-label">Why Swift Funding Group</p>
@@ -677,65 +688,19 @@
 <footer id="about">
   <p style="margin-bottom:8px; font-family:'Bebas Neue',sans-serif; font-size:16px; letter-spacing:3px; color:rgba(138,155,176,0.6);">SWIFT FUNDING GROUP</p>
   <p>A SwiftPath Capital LLC Company &nbsp;|&nbsp; 2800 W Oakland Park Blvd, Fort Lauderdale, FL 33311</p>
-  <p style="margin-top:6px;">admin@swiftpathcapital.net &nbsp;|&nbsp; <a href="https://www.swiftpathcapital.net/privacy-policy" target="_blank" style="color:rgba(201,168,76,0.5); text-decoration:none;">Privacy Policy</a> &nbsp;|&nbsp; <a href="https://www.swiftpathcapital.net/terms-of-service" target="_blank" style="color:rgba(201,168,76,0.5); text-decoration:none;">Terms of Service</a></p>
+  <p style="margin-top:6px;">admin@swiftpathcapital.net &nbsp;|&nbsp;
+    <a href="https://www.swiftpathcapital.net/privacy-policy" target="_blank" style="color:rgba(201,168,76,0.5);text-decoration:none;">Privacy Policy</a> &nbsp;|&nbsp;
+    <a href="https://www.swiftpathcapital.net/terms-of-service" target="_blank" style="color:rgba(201,168,76,0.5);text-decoration:none;">Terms of Service</a>
+  </p>
   <p style="margin-top:12px;">© 2026 Swift Path Capital LLC. All rights reserved.</p>
 </footer>
 
+<!-- ── FORMSPREE AJAX ── -->
 <script>
-  document.getElementById('consultForm').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    const form = e.target;
-    const btn = form.querySelector('.btn-submit');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-
-    const data = {
-      firstName: form.firstName.value,
-      lastName: form.lastName.value,
-      email: form.email.value,
-      company: form.company.value,
-      phone: form.phone.value,
-      fundingNeeds: form.fundingNeeds.value,
-      bestTime: form.bestTime.value,
-      fundingAmount: form.fundingAmount.value,
-    };
-
-    // Build mailto as fallback (replace with a backend/Formspree endpoint for production)
-    const subject = encodeURIComponent('New Consultation Request – ' + data.firstName + ' ' + data.lastName);
-    const body = encodeURIComponent(
-      'New consultation request from swiftpathtocapital.com\n\n' +
-      'Name: ' + data.firstName + ' ' + data.lastName + '\n' +
-      'Email: ' + data.email + '\n' +
-      'Company: ' + data.company + '\n' +
-      'Phone: ' + data.phone + '\n' +
-      'Funding Needs: ' + data.fundingNeeds + '\n' +
-      'Best Time to Call: ' + data.bestTime + '\n' +
-      'Funding Amount: ' + data.fundingAmount + '\n\n' +
-      'All consent checkboxes confirmed by applicant.'
-    );
-
-    // Try Formspree-style submission first; fallback to mailto
-    try {
-      // Replace YOUR_FORM_ID with your Formspree or backend endpoint
-      const res = await fetch('https://formspree.io/f/leads@swiftpathtocapital.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({ ...data, _replyto: data.email, _subject: 'New Consultation – Swift Funding Group' })
-      });
-
-      if (res.ok) {
-        form.style.display = 'none';
-        document.getElementById('successMsg').style.display = 'block';
-      } else { throw new Error('form error'); }
-    } catch {
-      // Fallback: open email client
-      window.location.href = 'mailto:leads@swiftpathtocapital.com?subject=' + subject + '&body=' + body;
-      form.style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
-    }
-  });
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#consultForm', formId: 'mbdbbppv' });
 </script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 </body>
 </html>
